@@ -67,7 +67,7 @@ class Json implements Request\Read\IReader
 	 */
 	public static function isJsonBug()
 	{
-		return PHP_VERSION_ID >= 70100;
+		return PHP_VERSION_ID >= 70100 && PHP_VERSION_ID < 70200;
 	}
 
 }
