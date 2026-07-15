@@ -123,9 +123,9 @@ class Queue implements IQueue
 				if($e->hasResponse()) {
 					self::detectDownloadResponse($e->getResponse());
 				}
-				throw self::createServiceUnavailableException();
+				throw self::createServiceUnavailableException($e);
 			} catch (GuzzleHttp\Exception\ConnectException $e) {
-				throw self::createServiceUnavailableException();
+				throw self::createServiceUnavailableException($e);
 			}
 		} while ($next);
 		fclose($file);
@@ -188,9 +188,9 @@ class Queue implements IQueue
 	}
 
 
-	private static function createServiceUnavailableException()
+	private static function createServiceUnavailableException(\Exception $previous = NULL)
 	{
-		return new Fio\ServiceUnavailableException('Fio server does not response.');
+		return new Fio\ServiceUnavailableException('Fio server does not response.', 0, $previous);
 	}
 
 }
